@@ -1,0 +1,47 @@
+workflows:
+  ios-workflow:
+    name: NAA TV Telugu iOS Release
+    max_build_duration: 60
+    instance_type: mac_mini_m1
+    environment:
+      xcode: latest
+      cocoapods: default
+    scripts:
+      - name: Locate Xcode Project
+        script: |
+          XCODE_PROJECT=$(find . -name "NaaTvTelugu.xcodeproj" -not -path "*/.*" | head -n 1)
+          echo "Found project at: $XCODE_PROJECT"
+          echo "XCODE_PROJECT=$XCODE_PROJECT" >> $CM_ENV
+
+      - name: Build iOS Application (Release)
+        script: |
+          xcodebuild build -project "$XCODE_PROJECT" \
+            -scheme NaaTvTelugu \
+            -configuration Release \
+            -destination "generic/platform=iOS" \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_IDENTITY=""
+
+      - name: Package .ipa File
+        script: |
+          mkdir -p build/ios/ipa/Payload
+          APP_PATH=$(find ~/Library/Developer/Xcode/DerivedData -name "NaaTvTelugu.app" -type d | head -n 1)
+          echo "Packaging app from: $APP_PATH"
+          cp -r "$APP_PATH" build/ios/ipa/Payload/
+          cd build/ios/ipa
+          zip -r NaaTvTelugu-Release.ipa Payload
+          echo "Successfully created NaaTvTelugu-Release.ipa"
+
+    artifacts:
+      - build/ios/ipa/*.ipa
+      - "*.ipa"
+      - "**/*.ipa"
+
+    publishing:
+      email:
+        recipients:
+          - madhusudhanvakkalanka2002vms@gmail.com
+        notify:
+          success: true
+          failure: true
