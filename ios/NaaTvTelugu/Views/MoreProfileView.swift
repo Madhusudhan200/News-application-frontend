@@ -12,6 +12,25 @@ public struct MoreProfileView: View {
     @State private var showReferralDialog: Bool = false
     
     public init(
+        viewModel: NewsViewModel,
+        onOpenCategories: @escaping () -> Void,
+        onOpenLanguageDialog: @escaping () -> Void,
+        onOpenLocationPicker: @escaping () -> Void,
+        onOpenReferral: @escaping () -> Void,
+        onOpenAdminPanel: @escaping () -> Void,
+        onOpenEmployeeDesk: @escaping () -> Void,
+        onOpenSavedStories: @escaping () -> Void,
+        onOpenAuth: @escaping () -> Void,
+        onSelectCategory: @escaping (Int) -> Void
+    ) {
+        self.vm = viewModel
+        self.onNavigateNews = { onSelectCategory(0) }
+        self.onNavigateAdmin = onOpenAdminPanel
+        self.onNavigateEmployee = onOpenEmployeeDesk
+        self.onNavigateSaved = onOpenSavedStories
+    }
+    
+    public init(
         vm: NewsViewModel,
         onNavigateNews: @escaping () -> Void,
         onNavigateAdmin: @escaping () -> Void,

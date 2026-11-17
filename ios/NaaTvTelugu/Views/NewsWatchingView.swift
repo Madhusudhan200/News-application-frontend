@@ -4,14 +4,28 @@ public struct NewsWatchingView: View {
     @ObservedObject var vm: NewsViewModel
     public var onNavigateHome: () -> Void
     public var onOpenCategories: () -> Void
+    public var onOpenFullStory: ((NewsItem) -> Void)?
     
     @State private var selectedStory: NewsItem? = nil
     @State private var showFullStorySheet: Bool = false
+    
+    public init(
+        viewModel: NewsViewModel,
+        onBackToHome: @escaping () -> Void,
+        onOpenCategories: @escaping () -> Void,
+        onOpenFullStory: @escaping (NewsItem) -> Void
+    ) {
+        self.vm = viewModel
+        self.onNavigateHome = onBackToHome
+        self.onOpenCategories = onOpenCategories
+        self.onOpenFullStory = onOpenFullStory
+    }
     
     public init(vm: NewsViewModel, onNavigateHome: @escaping () -> Void, onOpenCategories: @escaping () -> Void) {
         self.vm = vm
         self.onNavigateHome = onNavigateHome
         self.onOpenCategories = onOpenCategories
+        self.onOpenFullStory = nil
     }
     
     public var body: some View {

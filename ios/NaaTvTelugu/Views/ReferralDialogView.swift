@@ -5,6 +5,11 @@ public struct ReferralDialogView: View {
     public var onDismiss: () -> Void
     @State private var copied: Bool = false
     
+    public init(viewModel: NewsViewModel, isPresented: Binding<Bool>) {
+        self.vm = viewModel
+        self.onDismiss = { isPresented.wrappedValue = false }
+    }
+    
     public init(vm: NewsViewModel, onDismiss: @escaping () -> Void) {
         self.vm = vm
         self.onDismiss = onDismiss

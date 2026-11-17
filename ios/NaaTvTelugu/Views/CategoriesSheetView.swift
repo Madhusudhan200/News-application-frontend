@@ -7,6 +7,17 @@ public struct CategoriesSheetView: View {
     
     @State private var showLocationPicker: Bool = false
     
+    public init(
+        viewModel: NewsViewModel,
+        isPresented: Binding<Bool>,
+        onSelectCategory: @escaping (Int) -> Void,
+        onSelectLocation: @escaping (String) -> Void
+    ) {
+        self.vm = viewModel
+        self.onDismiss = { isPresented.wrappedValue = false }
+        self.onSelectCategory = onSelectCategory
+    }
+    
     public init(vm: NewsViewModel, onDismiss: @escaping () -> Void, onSelectCategory: @escaping (Int) -> Void) {
         self.vm = vm
         self.onDismiss = onDismiss

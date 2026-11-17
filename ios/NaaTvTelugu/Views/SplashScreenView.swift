@@ -3,6 +3,10 @@ import SwiftUI
 public struct SplashScreenView: View {
     public var onDismiss: () -> Void
     
+    public init(onFinished: @escaping () -> Void) {
+        self.onDismiss = onFinished
+    }
+    
     public init(onDismiss: @escaping () -> Void) {
         self.onDismiss = onDismiss
     }

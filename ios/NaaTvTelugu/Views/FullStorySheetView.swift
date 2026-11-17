@@ -9,6 +9,12 @@ public struct FullStorySheetView: View {
     @State private var isSpeaking: Bool = false
     @State private var synthesizer = AVSpeechSynthesizer()
     
+    public init(item: NewsItem, viewModel: NewsViewModel) {
+        self.vm = viewModel
+        self.item = item
+        self.onDismiss = {}
+    }
+    
     public init(vm: NewsViewModel, item: NewsItem, onDismiss: @escaping () -> Void) {
         self.vm = vm
         self.item = item

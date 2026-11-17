@@ -18,6 +18,11 @@ public struct LocationPickerDialog: View {
         "నెల్లూరు, నెల్లూరు"
     ]
     
+    public init(viewModel: NewsViewModel, isPresented: Binding<Bool>) {
+        self.vm = viewModel
+        self.onDismiss = { isPresented.wrappedValue = false }
+    }
+    
     public init(vm: NewsViewModel, onDismiss: @escaping () -> Void) {
         self.vm = vm
         self.onDismiss = onDismiss
