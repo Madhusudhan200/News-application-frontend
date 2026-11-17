@@ -1,0 +1,17 @@
+# Android build ignores
+.gradle/
+build/
+app/build/
+local.properties
+.idea/
+*.iml
+*.apk
+
+# iOS build ignores
+*.xcuserstate
+project.xcworkspace/xcuserdata/
+xcuserdata/
+DerivedData/
+ios/build/
+*.ipa
+.DS_Store
